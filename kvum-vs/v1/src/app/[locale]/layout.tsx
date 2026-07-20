@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import '../globals.css';
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { notFound } from 'next/navigation';
@@ -40,12 +41,6 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <head>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-1220D1ELYM" />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-1220D1ELYM');`,
-          }}
-        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
@@ -61,6 +56,13 @@ export default async function LocaleLayout({
         <link rel="apple-touch-icon" href="/images/brand/kakao_profile.jpg" />
       </head>
       <body suppressHydrationWarning>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-1220D1ELYM"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-1220D1ELYM');`}
+        </Script>
         <NextIntlClientProvider messages={messages}>
           {/* Background orbs */}
           <div className="bg-orbs" aria-hidden="true">

@@ -2,13 +2,19 @@
 
 import { useLocale } from 'next-intl';
 
+const MAIN_FORM_URL = 'https://docs.google.com/forms/d/1FpqCY0crwd9q4_rpX0NcKX03ma3Dzyh92GFjI8Ff2Tg/viewform?pli=1&pli=1&edit_requested=true';
+const AFTERPARTY_FORM_URL = 'https://docs.google.com/forms/d/1aM0iDMtavbHQ72RN-5nFOGCKgfguN7t9lfXQp8uylJk/viewform?pli=1&pli=1&edit_requested=true';
+const GUIDE_NOTION_URL = 'https://onyx-digestion-95b.notion.site/KVUM-5th-39cf977d8b4880ba9df8e8fc043d2471';
+
 type Content = {
   heroLabel: string;
   heroTitle: React.ReactNode;
   heroSub: string;
-  overviewItems: Array<{ dt: string; dd: string }>;
+  overviewItems: Array<{ dt: string; dd: React.ReactNode }>;
   overviewNote: string;
-  overviewPlace: string;
+  applyMain: string;
+  applyAfterparty: string;
+  guideLinkLabel: string;
   expectLabel: string;
   expectHeading: React.ReactNode;
   expectCards: Array<{ num: string; title: string; desc: string }>;
@@ -18,21 +24,59 @@ type Content = {
   contactLabels: { kakao: string; kakaoSub: string; email: string; emailSub: string; x: string; xSub: string; blog: string; blogSub: string };
 };
 
+const VENUE_MAP_URL = 'https://naver.me/xY4sP1mO';
+
+function MapLink({ label }: { label: string }) {
+  return (
+    <a href={VENUE_MAP_URL} target="_blank" rel="noopener noreferrer" className="overview__map-link">
+      {label}
+      <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true">
+        <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    </a>
+  );
+}
+
+function ResourceLink({ href, label, variant }: { href: string; label: string; variant: 'intro' | 'guide' }) {
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer" className={`overview__cta overview__cta--${variant}`}>
+      <span>{label}</span>
+      <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true">
+        <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    </a>
+  );
+}
+
+function VenueLine({ venue }: { venue: string }) {
+  return (
+    <span className="overview__venue">
+      <svg className="overview__venue-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M12 21s-7-6.4-7-11.2A7 7 0 0 1 12 3a7 7 0 0 1 7 6.8C19 14.6 12 21 12 21z" />
+        <circle cx="12" cy="9.5" r="2.3" />
+      </svg>
+      {venue}
+    </span>
+  );
+}
+
 const CONTENT: Record<string, Content> = {
   ko: {
     heroLabel: '5th KVUM · Coming Soon',
-    heroTitle: <>다시 돌아옵니다,<br /><span className="grad">다섯 번째 KVUM.</span></>,
+    heroTitle: <>10월 3일에 만나요,<br /><span className="grad">다섯 번째 KVUM.</span></>,
     heroSub: '2026년 10월 3일, 국내 XR 유저 · 개발자 · 기업이 다시 한자리에 모입니다. 네 번째 밋업에서 쌓아온 노하우와 네트워크를 바탕으로, 더 넓고 깊은 XR 축제를 준비하고 있습니다.',
     overviewItems: [
       { dt: '일시', dd: '2026년 10월 3일' },
-      { dt: '장소', dd: '서울 문래' },
+      { dt: '장소', dd: <><VenueLine venue="올댓마인드 (서울 문래)" /><MapLink label="지도 보기" /></> },
       { dt: '대상', dd: 'XR 유저 · 개발자 · 업계 관계자 · 콘텐츠 제작자' },
       { dt: '모집 인원', dd: '추후 공지' },
       { dt: '참가 신청', dd: '커뮤니티 · SNS · 단톡방을 통해 공지' },
-      { dt: '참가비', dd: '추후 공지' },
+      { dt: '참가비', dd: '10,000원' },
     ],
-    overviewNote: '* 모든 일정과 세부 내용은 변경될 수 있으며, 최종 확정된 내용은 모집 시작 전 안내드립니다.',
-    overviewPlace: '서울 문래',
+    overviewNote: '* 세부 내용은 유동적으로 변경될 수 있습니다.',
+    applyMain: '제 5회 KVUM 참가하기',
+    applyAfterparty: '애프터파티 참가하기',
+    guideLinkLabel: '5th KVUM 안내사항',
     expectLabel: 'What to Expect',
     expectHeading: <>5th KVUM에서 <span className="grad">만날 것들</span></>,
     expectCards: [
@@ -53,18 +97,20 @@ const CONTENT: Record<string, Content> = {
   },
   en: {
     heroLabel: '5th KVUM · Coming Soon',
-    heroTitle: <>It returns —<br /><span className="grad">the fifth KVUM.</span></>,
+    heroTitle: <>See you on Oct 3,<br /><span className="grad">the 5th KVUM.</span></>,
     heroSub: 'On October 3, 2026, Korea\'s XR users, developers, and companies gather again. Building on the network and expertise from our fourth meetup, we\'re preparing a wider, deeper XR festival.',
     overviewItems: [
       { dt: 'Date', dd: 'October 3, 2026' },
-      { dt: 'Venue', dd: 'Seoul Mullae' },
+      { dt: 'Venue', dd: <><VenueLine venue="AllThatMind (Seoul Mullae)" /><MapLink label="View map" /></> },
       { dt: 'Audience', dd: 'XR users · developers · industry · content creators' },
       { dt: 'Capacity', dd: 'TBA' },
       { dt: 'Registration', dd: 'Via community · SNS · group chats' },
-      { dt: 'Fee', dd: 'TBA' },
+      { dt: 'Fee', dd: '₩10,000' },
     ],
-    overviewNote: '* All schedules and details are subject to change. Final details will be announced before registration opens.',
-    overviewPlace: 'Seoul Mullae',
+    overviewNote: '* Details are subject to change.',
+    applyMain: 'Join the 5th KVUM',
+    applyAfterparty: 'Join the After Party',
+    guideLinkLabel: '5th KVUM Guide',
     expectLabel: 'What to Expect',
     expectHeading: <>What you&apos;ll find at the <span className="grad">5th KVUM</span></>,
     expectCards: [
@@ -85,18 +131,20 @@ const CONTENT: Record<string, Content> = {
   },
   ja: {
     heroLabel: '5th KVUM · Coming Soon',
-    heroTitle: <>再び帰ってきます、<br /><span className="grad">第5回 KVUM。</span></>,
+    heroTitle: <>10月3日に会いましょう、<br /><span className="grad">第5回 KVUM。</span></>,
     heroSub: '2026年10月3日、韓国の XR ユーザー · 開発者 · 企業が再び一堂に集います。第4回ミートアップで培ったノウハウとネットワークを基盤に、より広く深い XR フェスティバルを準備中です。',
     overviewItems: [
       { dt: '日時', dd: '2026年10月3日' },
-      { dt: '会場', dd: 'ソウル・ムルレ' },
+      { dt: '会場', dd: <><VenueLine venue="オールザットマインド（ソウル・ムルレ）" /><MapLink label="地図を見る" /></> },
       { dt: '対象', dd: 'XR ユーザー · 開発者 · 業界関係者 · コンテンツクリエイター' },
       { dt: '定員', dd: '後日公開' },
       { dt: '参加申込', dd: 'コミュニティ · SNS · グループチャットにて案内' },
-      { dt: '参加費', dd: '後日公開' },
+      { dt: '参加費', dd: '₩10,000' },
     ],
-    overviewNote: '* 日程と詳細は変更される可能性があり、最終確定内容は募集開始前にお知らせします。',
-    overviewPlace: 'ソウル・ムルレ',
+    overviewNote: '* 詳細は変更される場合があります。',
+    applyMain: '第5回 KVUM に参加する',
+    applyAfterparty: 'アフターパーティーに参加する',
+    guideLinkLabel: '第5回 KVUM 案内',
     expectLabel: 'What to Expect',
     expectHeading: <>第5回 KVUM で <span className="grad">出会えるもの</span></>,
     expectCards: [
@@ -117,18 +165,20 @@ const CONTENT: Record<string, Content> = {
   },
   zh: {
     heroLabel: '5th KVUM · Coming Soon',
-    heroTitle: <>再次回归，<br /><span className="grad">第5届 KVUM。</span></>,
+    heroTitle: <>10月3日见，<br /><span className="grad">第5届 KVUM。</span></>,
     heroSub: '2026年10月3日，韩国 XR 用户 · 开发者 · 企业再次相聚一堂。我们以第4届聚会积累的经验与人脉为基础，正在筹备更广更深的 XR 节日。',
     overviewItems: [
       { dt: '日期', dd: '2026年10月3日' },
-      { dt: '地点', dd: '首尔 · 文来' },
+      { dt: '地点', dd: <><VenueLine venue="AllThatMind（首尔 · 文来）" /><MapLink label="查看地图" /></> },
       { dt: '对象', dd: 'XR 用户 · 开发者 · 业界人士 · 内容创作者' },
       { dt: '招募人数', dd: '稍后公布' },
       { dt: '报名方式', dd: '通过社区 · SNS · 群聊公告' },
-      { dt: '参加费', dd: '稍后公布' },
+      { dt: '参加费', dd: '₩10,000' },
     ],
-    overviewNote: '* 所有日程与详细内容可能会有变动，最终确认内容将在报名开始前公布。',
-    overviewPlace: '首尔 · 文来',
+    overviewNote: '* 详细内容可能会有变动。',
+    applyMain: '参加第5届 KVUM',
+    applyAfterparty: '参加派对',
+    guideLinkLabel: '第5届 KVUM 须知',
     expectLabel: 'What to Expect',
     expectHeading: <>第5届 KVUM 的 <span className="grad">精彩内容</span></>,
     expectCards: [
@@ -164,6 +214,19 @@ export function Fifth() {
             </div>
             <h1 className="page-hero__title">{c.heroTitle}</h1>
             <p className="page-hero__sub">{c.heroSub}</p>
+            <div className="fifth-apply">
+              <a className="fifth-apply__btn fifth-apply__btn--primary" href={MAIN_FORM_URL} target="_blank" rel="noopener noreferrer">
+                <strong>{c.applyMain}</strong>
+              </a>
+              <a className="fifth-apply__btn fifth-apply__btn--outline" href={AFTERPARTY_FORM_URL} target="_blank" rel="noopener noreferrer">
+                <strong>
+                  {c.applyAfterparty}
+                  <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+                    <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </strong>
+              </a>
+            </div>
           </div>
         </div>
       </header>
@@ -178,7 +241,10 @@ export function Fifth() {
                 <span>10</span>
                 <span>03</span>
               </div>
-              <div className="overview__place">{c.overviewPlace}</div>
+
+              <div className="overview__cta-row overview__cta-row--side">
+                <ResourceLink href={GUIDE_NOTION_URL} label={c.guideLinkLabel} variant="guide" />
+              </div>
             </div>
 
             <div className="overview__main">
@@ -190,6 +256,7 @@ export function Fifth() {
                   </div>
                 ))}
               </dl>
+
               <p className="overview__note">{c.overviewNote}</p>
             </div>
           </div>

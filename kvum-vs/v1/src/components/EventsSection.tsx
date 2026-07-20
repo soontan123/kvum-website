@@ -4,6 +4,10 @@ import { useLocale } from 'next-intl';
 import Image from 'next/image';
 import { Link } from '@/i18n/navigation';
 
+const MAIN_FORM_URL = 'https://docs.google.com/forms/d/1FpqCY0crwd9q4_rpX0NcKX03ma3Dzyh92GFjI8Ff2Tg/viewform?pli=1&pli=1&edit_requested=true';
+const AFTERPARTY_FORM_URL = 'https://docs.google.com/forms/d/1aM0iDMtavbHQ72RN-5nFOGCKgfguN7t9lfXQp8uylJk/viewform?pli=1&pli=1&edit_requested=true';
+const GUIDE_NOTION_URL = 'https://onyx-digestion-95b.notion.site/KVUM-5th-39cf977d8b4880ba9df8e8fc043d2471';
+
 type HistoryCard = {
   tag: string;
   date: string;
@@ -76,36 +80,71 @@ const CARDS: Record<string, HistoryCard[]> = {
 const JOIN_CONTENT: Record<string, {
   heading: React.ReactNode;
   badge: string;
-  title: React.ReactNode;
+  title: string;
+  dateLabel: string;
+  dateValue: string;
+  locationLabel: string;
+  locationValue: string;
   cta: string;
+  applyMain: string;
+  applyAfterparty: string;
+  guideLink: string;
   contactTitle: string;
 }> = {
   ko: {
     heading: <><span className="grad">KVUM</span>이 걸어온 길.</>,
-    badge: '5TH · COMING SOON',
-    title: <>2026. 10. 03<span>서울 문래 · 참가 신청 곧 오픈</span></>,
+    badge: 'NOW REGISTERING',
+    title: '제 5회 KVUM',
+    dateLabel: 'DATE',
+    dateValue: '2026.10.03',
+    locationLabel: 'LOCATION',
+    locationValue: '서울 문래',
     cta: '상세페이지 바로가기',
+    applyMain: '제 5회 KVUM 참가하기',
+    applyAfterparty: '애프터파티 참가하기',
+    guideLink: '5th KVUM 안내사항',
     contactTitle: 'Get in touch',
   },
   en: {
     heading: <><span className="grad">KVUM&apos;s</span> journey</>,
-    badge: '5TH · COMING SOON',
-    title: <>2026. 10. 03<span>Seoul Mullae · Registration opens soon</span></>,
+    badge: 'NOW REGISTERING',
+    title: '5th KVUM',
+    dateLabel: 'DATE',
+    dateValue: '2026.10.03',
+    locationLabel: 'LOCATION',
+    locationValue: 'Seoul Mullae',
     cta: 'View details',
+    applyMain: 'Join the 5th KVUM',
+    applyAfterparty: 'Join the After Party',
+    guideLink: '5th KVUM Guide',
     contactTitle: 'Get in touch',
   },
   ja: {
     heading: <><span className="grad">KVUM</span> の歩み</>,
-    badge: '5TH · COMING SOON',
-    title: <>2026. 10. 03<span>ソウル · 文來 · 参加申込 近日公開</span></>,
+    badge: 'NOW REGISTERING',
+    title: '第5回 KVUM',
+    dateLabel: 'DATE',
+    dateValue: '2026.10.03',
+    locationLabel: 'LOCATION',
+    locationValue: 'ソウル · 文來',
     cta: '詳細ページへ',
+    applyMain: '第5回 KVUM に参加する',
+    applyAfterparty: 'アフターパーティーに参加する',
+    guideLink: '第5回 KVUM 案内',
     contactTitle: 'Get in touch',
   },
   zh: {
     heading: <><span className="grad">KVUM</span> 走过的路。</>,
-    badge: '5TH · COMING SOON',
-    title: <>2026. 10. 03<span>首尔 · 文来 · 报名即将开启</span></>,
+    badge: 'NOW REGISTERING',
+    title: '第5届 KVUM',
+    dateLabel: 'DATE',
+    dateValue: '2026.10.03',
+    locationLabel: 'LOCATION',
+    locationValue: '首尔 · 文来',
     cta: '查看详情页',
+    applyMain: '参加第5届 KVUM',
+    applyAfterparty: '参加派对',
+    guideLink: '第5届 KVUM 须知',
     contactTitle: 'Get in touch',
   },
 };
@@ -157,12 +196,64 @@ export function EventsSection() {
               <span>{jc.badge}</span>
             </div>
             <h3 className="join__title">{jc.title}</h3>
-            <Link href="/5th" className="join__cta">
-              {jc.cta}
-              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
-                <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </Link>
+
+            <div className="join__infocards">
+              <div className="join__infocard">
+                <span className="join__infocard-icon">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="3" y="5" width="18" height="16" rx="2"/>
+                    <path d="M3 10h18M8 3v4M16 3v4"/>
+                  </svg>
+                </span>
+                <div>
+                  <div className="join__infocard-label">{jc.dateLabel}</div>
+                  <div className="join__infocard-value">{jc.dateValue}</div>
+                </div>
+              </div>
+              <div className="join__infocard">
+                <span className="join__infocard-icon">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 21s-7-6.4-7-11.2A7 7 0 0 1 12 3a7 7 0 0 1 7 6.8C19 14.6 12 21 12 21z"/>
+                    <circle cx="12" cy="9.5" r="2.3"/>
+                  </svg>
+                </span>
+                <div>
+                  <div className="join__infocard-label">{jc.locationLabel}</div>
+                  <div className="join__infocard-value">{jc.locationValue}</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="join__cta-stack">
+              <a href={MAIN_FORM_URL} target="_blank" rel="noopener noreferrer" className="join__cta join__cta--primary">
+                {jc.applyMain}
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+                  <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </a>
+              <a href={AFTERPARTY_FORM_URL} target="_blank" rel="noopener noreferrer" className="join__cta join__cta--outline">
+                {jc.applyAfterparty}
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+                  <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </a>
+            </div>
+
+            <div className="join__links">
+              <Link href="/5th" className="join__cta join__cta--text">
+                {jc.cta}
+                <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true">
+                  <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </Link>
+              <span className="join__links-divider" aria-hidden="true" />
+              <a href={GUIDE_NOTION_URL} target="_blank" rel="noopener noreferrer" className="join__cta join__cta--text">
+                {jc.guideLink}
+                <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true">
+                  <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </a>
+            </div>
           </div>
 
           <div className="join__right">

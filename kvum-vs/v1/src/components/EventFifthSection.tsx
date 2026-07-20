@@ -3,6 +3,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 
+const MAIN_FORM_URL = 'https://docs.google.com/forms/d/1FpqCY0crwd9q4_rpX0NcKX03ma3Dzyh92GFjI8Ff2Tg/viewform?pli=1&pli=1&edit_requested=true';
+const AFTERPARTY_FORM_URL = 'https://docs.google.com/forms/d/1aM0iDMtavbHQ72RN-5nFOGCKgfguN7t9lfXQp8uylJk/viewform?pli=1&pli=1&edit_requested=true';
+const INTRO_NOTION_URL = 'https://onyx-digestion-95b.notion.site/Korea-VR-User-Meetup-1aaf977d8b48804eb2a0f484e9558f27';
+const GUIDE_NOTION_URL = 'https://onyx-digestion-95b.notion.site/KVUM-5th-39cf977d8b4880ba9df8e8fc043d2471';
+
 function useFadeIn(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
@@ -202,9 +207,108 @@ export function EventFifthSection() {
           </div>
         </div>
 
+        <ApplyButtons />
+
+        <ResourceLinks />
+
         <ContactCards />
       </div>
     </section>
+  );
+}
+
+// ── Apply buttons ────────────────────────────────────────────────────────────
+function ApplyButtons() {
+  const t = useTranslations('EventFifth');
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      { threshold: 0.08 },
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-4 transition-all duration-1000 delay-150"
+      style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(2rem)' }}
+    >
+      <a
+        href={MAIN_FORM_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group relative flex flex-col items-center justify-center text-center gap-1 px-6 py-5 overflow-hidden transition-all duration-300 hover:-translate-y-1 active:scale-[0.98]"
+        style={{
+          background: 'linear-gradient(135deg, #7c3aed, #1a5cff)',
+          borderRadius: '16px',
+          boxShadow: '0 8px 28px rgba(124,58,237,0.28)',
+        }}
+      >
+        <span className="text-white font-bold text-[0.98rem] leading-snug">{t('apply_main')}</span>
+        <span className="text-[0.72rem]" style={{ color: 'rgba(255,255,255,0.7)' }}>{t('apply_main_note')}</span>
+      </a>
+      <a
+        href={AFTERPARTY_FORM_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group relative flex flex-col items-center justify-center text-center gap-1 px-6 py-5 overflow-hidden transition-all duration-300 hover:-translate-y-1 active:scale-[0.98]"
+        style={{
+          background: 'rgba(255,255,255,0.85)',
+          border: '1px solid rgba(236,72,153,0.35)',
+          borderRadius: '16px',
+          boxShadow: '0 2px 12px rgba(13,13,26,0.04)',
+        }}
+      >
+        <span className="font-bold text-[0.98rem] leading-snug" style={{ color: '#ec4899' }}>{t('apply_afterparty')}</span>
+        <span className="text-[0.72rem]" style={{ color: 'rgba(13,13,26,0.40)' }}>{t('apply_afterparty_note')}</span>
+      </a>
+    </div>
+  );
+}
+
+// ── Resource links (intro / guide) ──────────────────────────────────────────
+function ResourceLinks() {
+  const t = useTranslations('EventFifth');
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      { threshold: 0.08 },
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className="overview__cta-row transition-all duration-1000 delay-200"
+      style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(1.5rem)', marginTop: '1.5rem' }}
+    >
+      <a href={INTRO_NOTION_URL} target="_blank" rel="noopener noreferrer" className="overview__cta overview__cta--intro">
+        <span>{t('intro_link')}</span>
+        <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true">
+          <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </a>
+      <a href={GUIDE_NOTION_URL} target="_blank" rel="noopener noreferrer" className="overview__cta overview__cta--guide">
+        <span>{t('guide_link')}</span>
+        <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true">
+          <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </a>
+    </div>
   );
 }
 

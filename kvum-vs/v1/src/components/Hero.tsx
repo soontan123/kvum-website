@@ -3,12 +3,18 @@
 import { useEffect, useState } from 'react';
 import { useLocale } from 'next-intl';
 
+const MAIN_FORM_URL = 'https://docs.google.com/forms/d/1FpqCY0crwd9q4_rpX0NcKX03ma3Dzyh92GFjI8Ff2Tg/viewform?pli=1&pli=1&edit_requested=true';
+const AFTERPARTY_FORM_URL = 'https://docs.google.com/forms/d/1aM0iDMtavbHQ72RN-5nFOGCKgfguN7t9lfXQp8uylJk/viewform?pli=1&pli=1&edit_requested=true';
+const GUIDE_NOTION_URL = 'https://onyx-digestion-95b.notion.site/KVUM-5th-39cf977d8b4880ba9df8e8fc043d2471';
+
 const HERO_CONTENT: Record<string, {
   markLabel: string;
   markLoc: string;
   title: React.ReactNode;
   sub: React.ReactNode;
-  cta: string;
+  applyMain: string;
+  applyAfterparty: string;
+  guideLink: string;
 }> = {
   ko: {
     markLabel: '다음 밋업',
@@ -28,7 +34,9 @@ const HERO_CONTENT: Record<string, {
         <strong>국내 최대 규모의 XR 유저 밋업</strong>입니다.
       </>
     ),
-    cta: '5th KVUM 자세히 보기',
+    applyMain: '제 5회 KVUM 참가하기',
+    applyAfterparty: '애프터파티 참가하기',
+    guideLink: '5th KVUM 안내사항',
   },
   en: {
     markLabel: 'Next Meetup',
@@ -48,7 +56,9 @@ const HERO_CONTENT: Record<string, {
         <strong>the country&apos;s largest XR user meetup</strong>.
       </>
     ),
-    cta: 'Join 5th KVUM',
+    applyMain: 'Join the 5th KVUM',
+    applyAfterparty: 'Join the After Party',
+    guideLink: '5th KVUM Guide',
   },
   ja: {
     markLabel: '次回ミートアップ',
@@ -67,7 +77,9 @@ const HERO_CONTENT: Record<string, {
         KVUM は韓国の XR ユーザー、開発者、業界関係者が一つの空間に集う — <strong>国内最大規模の XR ユーザーミートアップ</strong>です。
       </>
     ),
-    cta: '第5回 KVUM に参加する',
+    applyMain: '第5回 KVUM に参加する',
+    applyAfterparty: 'アフターパーティーに参加する',
+    guideLink: '第5回 KVUM 案内',
   },
   zh: {
     markLabel: '下次聚会',
@@ -86,7 +98,9 @@ const HERO_CONTENT: Record<string, {
         KVUM 是韩国 XR 用户、开发者与业界人士齐聚一堂的 <strong>韩国最大规模 XR 用户聚会</strong>。
       </>
     ),
-    cta: '了解第5届 KVUM',
+    applyMain: '参加第5届 KVUM',
+    applyAfterparty: '参加派对',
+    guideLink: '第5届 KVUM 须知',
   },
 };
 
@@ -138,13 +152,31 @@ export function Hero() {
         <p className="hero__sub">{content.sub}</p>
         <div className="hero__cta">
           <a
-            href="#join"
-            className="btn btn--primary"
-            onClick={e => { e.preventDefault(); scrollTo('join'); }}
+            href={MAIN_FORM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn--gradient"
           >
-            <span>{content.cta}</span>
+            <span>{content.applyMain}</span>
             <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </a>
+          <a
+            href={AFTERPARTY_FORM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn--outline"
+          >
+            <span>{content.applyAfterparty}</span>
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+              <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </a>
+          <a href={GUIDE_NOTION_URL} target="_blank" rel="noopener noreferrer" className="overview__cta overview__cta--guide overview__cta--pill">
+            <span>{content.guideLink}</span>
+            <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true">
+              <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </a>
         </div>
