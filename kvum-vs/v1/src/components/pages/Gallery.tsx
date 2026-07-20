@@ -2,6 +2,7 @@
 
 import { useLocale } from 'next-intl';
 import Image from 'next/image';
+import { useState } from 'react';
 
 type Block = {
   id: string;
@@ -17,9 +18,7 @@ type Content = {
   heroTitle: React.ReactNode;
   heroSub: string;
   tabs: Array<{ id: string; num: string; label: string; active?: boolean }>;
-  blocks: { fourth: Block; third: Block; second: Block; first: Block; values: Block };
-  quad: Array<{ src: string; alt: string; caption: string }>;
-  footnote: string;
+  blocks: { fourth: Block; third: Block; second: Block; first: Block };
 };
 
 const FOURTH_PHOTOS: Array<{ n: string; mod?: 'tall' | 'wide'; ext?: 'jpg' | 'png' }> = [
@@ -56,7 +55,6 @@ const CONTENT: Record<string, Content> = {
       { id: 'g-3rd', num: '03', label: '3rd · 2025.03' },
       { id: 'g-2nd', num: '02', label: '2nd · 2024.06' },
       { id: 'g-1st', num: '01', label: '1st · 2024.03' },
-      { id: 'g-values', num: '★', label: 'Values' },
     ],
     blocks: {
       fourth: {
@@ -79,19 +77,7 @@ const CONTENT: Record<string, Content> = {
         title: <>모든 것의 <span className="grad">시작.</span></>,
         desc: '서울 사당의 작은 파티룸에서 시작된 첫 VR 유저 밋업.',
       },
-      values: {
-        id: 'g-values', num: '★', date: 'KVUM의 장면들',
-        title: <>KVUM이 그리는 <span className="grad">네 가지 장면.</span></>,
-        desc: '체험 · 교류 · 커뮤니티 · 생태계 — KVUM이 만드는 순간들.',
-      },
     },
-    quad: [
-      { src: '/images/photos/value-experience.jpg', alt: '체험', caption: 'Experience' },
-      { src: '/images/photos/value-exchange.png',   alt: '교류', caption: 'Exchange' },
-      { src: '/images/photos/value-community.jpg',  alt: '커뮤니티', caption: 'Community' },
-      { src: '/images/photos/value-ecosystem.jpg',  alt: '생태계', caption: 'Ecosystem' },
-    ],
-    footnote: '* 1/2/3회차 사진은 아직 일부만 업로드되어 있습니다. 추가 사진은 순차적으로 공개 예정입니다.',
   },
   en: {
     heroLabel: 'Gallery',
@@ -102,7 +88,6 @@ const CONTENT: Record<string, Content> = {
       { id: 'g-3rd', num: '03', label: '3rd · 2025.03' },
       { id: 'g-2nd', num: '02', label: '2nd · 2024.06' },
       { id: 'g-1st', num: '01', label: '1st · 2024.03' },
-      { id: 'g-values', num: '★', label: 'Values' },
     ],
     blocks: {
       fourth: {
@@ -125,19 +110,7 @@ const CONTENT: Record<string, Content> = {
         title: <>The start of <span className="grad">everything.</span></>,
         desc: 'Our first VR user meetup, started in a small party room in Sadang, Seoul.',
       },
-      values: {
-        id: 'g-values', num: '★', date: 'Scenes of KVUM',
-        title: <>The four scenes <span className="grad">KVUM paints.</span></>,
-        desc: 'Experience · Exchange · Community · Ecosystem — moments KVUM creates.',
-      },
     },
-    quad: [
-      { src: '/images/photos/value-experience.jpg', alt: 'Experience', caption: 'Experience' },
-      { src: '/images/photos/value-exchange.png',   alt: 'Exchange',   caption: 'Exchange' },
-      { src: '/images/photos/value-community.jpg',  alt: 'Community',  caption: 'Community' },
-      { src: '/images/photos/value-ecosystem.jpg',  alt: 'Ecosystem',  caption: 'Ecosystem' },
-    ],
-    footnote: '* Photos from the 1st/2nd/3rd events are partially uploaded. More will be added gradually.',
   },
   ja: {
     heroLabel: 'Gallery',
@@ -148,7 +121,6 @@ const CONTENT: Record<string, Content> = {
       { id: 'g-3rd', num: '03', label: '3rd · 2025.03' },
       { id: 'g-2nd', num: '02', label: '2nd · 2024.06' },
       { id: 'g-1st', num: '01', label: '1st · 2024.03' },
-      { id: 'g-values', num: '★', label: 'Values' },
     ],
     blocks: {
       fourth: {
@@ -171,19 +143,7 @@ const CONTENT: Record<string, Content> = {
         title: <>すべての <span className="grad">始まり。</span></>,
         desc: 'ソウル・サダンの小さなパーティールームで始まった初の VR ユーザーミートアップ。',
       },
-      values: {
-        id: 'g-values', num: '★', date: 'KVUM のシーン',
-        title: <>KVUM が描く <span className="grad">四つのシーン。</span></>,
-        desc: '体験 · 交流 · コミュニティ · エコシステム — KVUM が創る瞬間。',
-      },
     },
-    quad: [
-      { src: '/images/photos/value-experience.jpg', alt: '体験',         caption: 'Experience' },
-      { src: '/images/photos/value-exchange.png',   alt: '交流',         caption: 'Exchange' },
-      { src: '/images/photos/value-community.jpg',  alt: 'コミュニティ', caption: 'Community' },
-      { src: '/images/photos/value-ecosystem.jpg',  alt: 'エコシステム', caption: 'Ecosystem' },
-    ],
-    footnote: '* 1/2/3回の写真は一部のみアップロードされています。追加写真は順次公開予定です。',
   },
   zh: {
     heroLabel: 'Gallery',
@@ -194,7 +154,6 @@ const CONTENT: Record<string, Content> = {
       { id: 'g-3rd', num: '03', label: '3rd · 2025.03' },
       { id: 'g-2nd', num: '02', label: '2nd · 2024.06' },
       { id: 'g-1st', num: '01', label: '1st · 2024.03' },
-      { id: 'g-values', num: '★', label: 'Values' },
     ],
     blocks: {
       fourth: {
@@ -217,26 +176,24 @@ const CONTENT: Record<string, Content> = {
         title: <>一切的 <span className="grad">开始。</span></>,
         desc: '在首尔舍堂的小派对房间举办的首届 VR 用户聚会。',
       },
-      values: {
-        id: 'g-values', num: '★', date: 'KVUM 的场景',
-        title: <>KVUM 描绘的 <span className="grad">四个场景。</span></>,
-        desc: '体验 · 交流 · 社区 · 生态 —— KVUM 创造的瞬间。',
-      },
     },
-    quad: [
-      { src: '/images/photos/value-experience.jpg', alt: '体验', caption: 'Experience' },
-      { src: '/images/photos/value-exchange.png',   alt: '交流', caption: 'Exchange' },
-      { src: '/images/photos/value-community.jpg',  alt: '社区', caption: 'Community' },
-      { src: '/images/photos/value-ecosystem.jpg',  alt: '生态', caption: 'Ecosystem' },
-    ],
-    footnote: '* 第1/2/3届的部分照片仍在上传中，更多照片将陆续公开。',
   },
+};
+
+const SINGLE_IMG: Record<string, { src: string; alt: string }> = {
+  'g-3rd': { src: '/images/photos/history-3rd.jpg', alt: '3rd KVUM' },
+  'g-2nd': { src: '/images/photos/history-2nd.jpg', alt: '2nd KVUM' },
+  'g-1st': { src: '/images/photos/history-1st.jpg', alt: '1st KVUM' },
 };
 
 export function Gallery() {
   const locale = useLocale();
   const c = CONTENT[locale] ?? CONTENT.ko;
   const b = c.blocks;
+  const [active, setActive] = useState('g-4th');
+
+  const singleBlock =
+    active === 'g-3rd' ? b.third : active === 'g-2nd' ? b.second : active === 'g-1st' ? b.first : null;
 
   return (
     <>
@@ -255,104 +212,81 @@ export function Gallery() {
 
       <section className="section section--gallery">
         <div className="container">
-          <nav className="gallery__tabs" aria-label="Gallery sections">
+          <nav className="gallery__tabs" role="tablist" aria-label="Gallery sections">
             {c.tabs.map(tab => (
-              <a key={tab.id} href={`#${tab.id}`} className={`gallery__tab${tab.active ? ' is-active' : ''}`}>
+              <button
+                key={tab.id}
+                type="button"
+                role="tab"
+                aria-selected={active === tab.id}
+                onClick={() => setActive(tab.id)}
+                className={`gallery__tab${active === tab.id ? ' is-active' : ''}`}
+              >
                 <span className="tab__num">{tab.num}</span>
                 <span>{tab.label}</span>
-              </a>
+              </button>
             ))}
           </nav>
 
-          <article className="gallery__block" id={b.fourth.id}>
-            <header className="gallery__block-head">
-              <div className="gallery__block-meta">
-                <span className="gallery__block-num">{b.fourth.num}</span>
-                <span className="gallery__block-date">{b.fourth.date}</span>
-                {b.fourth.place && <span className="gallery__block-place">{b.fourth.place}</span>}
-              </div>
-              <h2 className="gallery__block-title">{b.fourth.title}</h2>
-              <p className="gallery__block-desc">{b.fourth.desc}</p>
-            </header>
+          {active === 'g-4th' && (
+            <article className="gallery__block" id={b.fourth.id}>
+              <header className="gallery__block-head">
+                <div className="gallery__block-meta">
+                  <span className="gallery__block-num">{b.fourth.num}</span>
+                  <span className="gallery__block-date">{b.fourth.date}</span>
+                  {b.fourth.place && <span className="gallery__block-place">{b.fourth.place}</span>}
+                </div>
+                <h2 className="gallery__block-title">{b.fourth.title}</h2>
+                <p className="gallery__block-desc">{b.fourth.desc}</p>
+              </header>
 
-            <div className="masonry">
-              {FOURTH_PHOTOS.map(p => (
-                <figure
-                  key={p.n}
-                  className={`masonry__item${p.mod ? ` masonry__item--${p.mod}` : ''}`}
-                >
-                  <Image
-                    src={`/images/gallery/4th/photo-${p.n}.${p.ext ?? 'jpg'}`}
-                    alt={`4th KVUM photo ${p.n}`}
-                    width={800}
-                    height={600}
-                    sizes="(max-width: 760px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                    loading="lazy"
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                  />
-                </figure>
-              ))}
-            </div>
-          </article>
-
-          {[b.third, b.second, b.first].map((block, i) => {
-            const heroImg = ['/images/photos/history-3rd.jpg', '/images/photos/history-2nd.jpg', '/images/photos/history-1st.jpg'][i];
-            const heroAlt = ['3rd KVUM', '2nd KVUM', '1st KVUM'][i];
-            return (
-              <article key={block.id} className="gallery__block" id={block.id}>
-                <header className="gallery__block-head">
-                  <div className="gallery__block-meta">
-                    <span className="gallery__block-num">{block.num}</span>
-                    <span className="gallery__block-date">{block.date}</span>
-                  </div>
-                  <h2 className="gallery__block-title">{block.title}</h2>
-                  <p className="gallery__block-desc">{block.desc}</p>
-                </header>
-                <div className="gallery__single">
-                  <figure className="gallery__hero-img">
+              <div className="masonry">
+                {FOURTH_PHOTOS.map(p => (
+                  <figure
+                    key={p.n}
+                    className={`masonry__item${p.mod ? ` masonry__item--${p.mod}` : ''}`}
+                  >
                     <Image
-                      src={heroImg}
-                      alt={heroAlt}
-                      width={1600}
-                      height={900}
-                      sizes="(max-width: 1100px) 100vw, 1100px"
+                      src={`/images/gallery/4th/photo-${p.n}.${p.ext ?? 'jpg'}`}
+                      alt={`4th KVUM photo ${p.n}`}
+                      width={800}
+                      height={600}
+                      sizes="(max-width: 760px) 50vw, (max-width: 1024px) 33vw, 25vw"
                       loading="lazy"
                       style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     />
                   </figure>
-                </div>
-              </article>
-            );
-          })}
-
-          <article className="gallery__block" id={b.values.id}>
-            <header className="gallery__block-head">
-              <div className="gallery__block-meta">
-                <span className="gallery__block-num">{b.values.num}</span>
-                <span className="gallery__block-date">{b.values.date}</span>
+                ))}
               </div>
-              <h2 className="gallery__block-title">{b.values.title}</h2>
-              <p className="gallery__block-desc">{b.values.desc}</p>
-            </header>
-            <div className="gallery__quad">
-              {c.quad.map(item => (
-                <figure key={item.caption} className="quad__item">
+            </article>
+          )}
+
+          {singleBlock && (
+            <article className="gallery__block" id={singleBlock.id}>
+              <header className="gallery__block-head">
+                <div className="gallery__block-meta">
+                  <span className="gallery__block-num">{singleBlock.num}</span>
+                  <span className="gallery__block-date">{singleBlock.date}</span>
+                </div>
+                <h2 className="gallery__block-title">{singleBlock.title}</h2>
+                <p className="gallery__block-desc">{singleBlock.desc}</p>
+              </header>
+              <div className="gallery__single">
+                <figure className="gallery__hero-img">
                   <Image
-                    src={item.src}
-                    alt={item.alt}
-                    width={800}
-                    height={600}
-                    sizes="(max-width: 760px) 100vw, 50vw"
+                    src={SINGLE_IMG[active].src}
+                    alt={SINGLE_IMG[active].alt}
+                    width={1600}
+                    height={900}
+                    sizes="(max-width: 1100px) 100vw, 1100px"
                     loading="lazy"
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   />
-                  <figcaption>{item.caption}</figcaption>
                 </figure>
-              ))}
-            </div>
-          </article>
+              </div>
+            </article>
+          )}
 
-          <p className="gallery__footnote">{c.footnote}</p>
         </div>
       </section>
     </>
