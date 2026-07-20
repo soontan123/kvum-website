@@ -43,3 +43,6 @@ next-env.d.ts
 # original asset bundles (not source-tracked)
 *.zip
 /kvum-zip-extracted/
+
+# playwright test artifacts
+/.playwright-mcp/

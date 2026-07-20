@@ -1,0 +1,47 @@
+{
+  "generations": ["1st", "2nd", "3rd", "4th"],
+  "1st": [
+    { "id": 1, "name": "XREAL" },
+    { "id": 2, "name": "VR Insight" },
+    { "id": 3, "name": "ELYSIAN" }
+  ],
+  "2nd": [
+    { "id": 1, "name": "XREAL" },
+    { "id": 2, "name": "VR Insight" },
+    { "id": 3, "name": "ALL IP" },
+    { "id": 4, "name": "Smilegate" },
+    { "id": 5, "name": "bHaptics" },
+    { "id": 6, "name": "XREAL 학회" }
+  ],
+  "3rd": [
+    { "id": 1, "name": "Nare Motion" },
+    { "id": 2, "name": "bHaptics" },
+    { "id": 3, "name": "TCL" },
+    { "id": 4, "name": "Diver-X" },
+    { "id": 5, "name": "PICO" },
+    { "id": 6, "name": "VR Insight" }
+  ],
+  "4th": [
+    { "id": 1, "name": "Nare Motion" },
+    { "id": 2, "name": "bHaptics" },
+    { "id": 3, "name": "MVEX 2026" },
+    { "id": 4, "name": "VR Insight" },
+    { "id": 5, "name": "VR Maniac" },
+    { "id": 6, "name": "Arkive VR" },
+    { "id": 7, "name": "VR Game Gallery" },
+    { "id": 8, "name": "PICO" },
+    { "id": 9, "name": "Upmarket" },
+    { "id": 10, "name": "BOBOVR" },
+    { "id": 11, "name": "Syntech" },
+    { "id": 12, "name": "AMVR" },
+    { "id": 13, "name": "Kiwi Design" },
+    { "id": 14, "name": "Ludens" },
+    { "id": 15, "name": "VRChat Symposium" },
+    { "id": 16, "name": "Shiftall" },
+    { "id": 17, "name": "VIVE" },
+    { "id": 18, "name": "Motion Technologies" },
+    { "id": 19, "name": "Play for Dream" },
+    { "id": 20, "name": "Seven Point One" },
+    { "id": 21, "name": "XREAL" }
+  ]
+}
