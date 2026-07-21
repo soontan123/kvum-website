@@ -1498,7 +1498,7 @@ ul  { list-style: none; }
 }
 @media (max-width: 640px) {
   .fifth-apply { flex-direction: column; }
-  .fifth-apply__btn { width: 100%; min-width: 0; }
+  .fifth-apply__btn { flex: 0 0 auto; width: 100%; min-width: 0; }
 }
 
 /* ============ OVERVIEW (5th) ============ */
@@ -2053,6 +2053,7 @@ ul  { list-style: none; }
 /* ============ SUB-PAGE RESPONSIVE ============ */
 @media (max-width: 900px) {
   .overview { grid-template-columns: 1fr; padding: 36px 28px; gap: 32px; }
+  .overview__item { grid-template-columns: 1fr; gap: 6px; }
   .expect__grid { grid-template-columns: 1fr; }
   .tuned__card { grid-template-columns: 1fr; }
   .tuned__left, .tuned__right { padding: 40px 28px; }
