@@ -11,6 +11,8 @@ type PartnersByGeneration = Record<string, Partner[]>;
 const GENERATIONS = ['1st', '2nd', '3rd', '4th'] as const;
 const DEFAULT_GENERATION = GENERATIONS[GENERATIONS.length - 1];
 
+const ASSET_VERSION = process.env.NEXT_PUBLIC_ASSET_VERSION ?? '';
+
 const CONTENT: Record<string, { title: React.ReactNode; lead: string }> = {
   ko: {
     title: <>함께 만든 <span className="grad">파트너들.</span></>,
@@ -74,7 +76,7 @@ export function PartnersSection() {
           {partners.map(p => (
             <div className="partner" key={p.id}>
               <Image
-                src={`/images/partners/${active}/${p.id}.png`}
+                src={`/images/partners/${active}/${p.id}.png?v=${ASSET_VERSION}`}
                 alt={p.name}
                 width={220}
                 height={72}

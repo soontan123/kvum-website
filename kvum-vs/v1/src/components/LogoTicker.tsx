@@ -6,6 +6,8 @@ import { useEffect, useRef, useState } from 'react';
 type Partner = { id: number; name: string };
 type PartnersData = { generations?: string[] } & Record<string, unknown>;
 
+const ASSET_VERSION = process.env.NEXT_PUBLIC_ASSET_VERSION ?? '';
+
 function LogoGroup({
   partners,
   generation,
@@ -22,7 +24,7 @@ function LogoGroup({
       {partners.map(p => (
         <Image
           key={p.id}
-          src={`/images/partners/${generation}/${p.id}.png`}
+          src={`/images/partners/${generation}/${p.id}.png?v=${ASSET_VERSION}`}
           alt=""
           className="ticker__logo"
           width={220}
