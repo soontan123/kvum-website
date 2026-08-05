@@ -82,6 +82,7 @@ export function PartnersSection() {
                 height={72}
                 style={{ maxHeight: 72, width: 'auto', height: 'auto', objectFit: 'contain' }}
                 loading="lazy"
+                unoptimized
               />
             </div>
           ))}

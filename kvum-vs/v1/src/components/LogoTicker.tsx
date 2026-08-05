@@ -30,6 +30,7 @@ function LogoGroup({
           width={220}
           height={48}
           loading={eager ? 'eager' : 'lazy'}
+          unoptimized
         />
       ))}
     </div>
