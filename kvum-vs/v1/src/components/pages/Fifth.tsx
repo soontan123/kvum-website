@@ -21,10 +21,11 @@ type Content = {
   tunedBadge: string;
   tunedTitle: React.ReactNode;
   tunedDesc: string;
-  contactLabels: { kakao: string; kakaoSub: string; email: string; emailSub: string; x: string; xSub: string; blog: string; blogSub: string };
+  contactLabels: { kakao: string; kakaoSub: string; discord: string; discordSub: string; email: string; emailSub: string; x: string; xSub: string; blog: string; blogSub: string };
 };
 
 const VENUE_MAP_URL = 'https://naver.me/xY4sP1mO';
+const DISCORD_URL = 'https://discord.gg/qm7uXSjBJZ';
 
 function MapLink({ label }: { label: string }) {
   return (
@@ -90,6 +91,7 @@ const CONTENT: Record<string, Content> = {
     tunedDesc: '오픈채팅방과 이메일을 통해 일정과 장소, 참가 신청이 열리는 순간 가장 먼저 알려드립니다. 놓치지 마세요.',
     contactLabels: {
       kakao: '오픈 카카오톡', kakaoSub: '참가 소식 · 실시간 공지',
+      discord: 'Discord', discordSub: '공식 디스코드 커뮤니티',
       email: 'future1070@naver.com', emailSub: '파트너십 · 일반 문의',
       x: '@vum_k67455', xSub: '공식 X (트위터)',
       blog: 'VR 인사이트', blogSub: '네이버 블로그',
@@ -124,6 +126,7 @@ const CONTENT: Record<string, Content> = {
     tunedDesc: 'Through our open chat and email, we\'ll let you know the moment dates, venue, and registration go live. Don\'t miss it.',
     contactLabels: {
       kakao: 'Open KakaoTalk', kakaoSub: 'Updates · live announcements',
+      discord: 'Discord', discordSub: 'Official Discord community',
       email: 'future1070@naver.com', emailSub: 'Partnerships · general inquiries',
       x: '@vum_k67455', xSub: 'Official X (Twitter)',
       blog: 'VR Insight', blogSub: 'Naver Blog',
@@ -158,6 +161,7 @@ const CONTENT: Record<string, Content> = {
     tunedDesc: 'オープンチャットとメールを通じて、日程・会場・参加申込が開始される瞬間にいち早くお知らせします。お見逃しなく。',
     contactLabels: {
       kakao: 'オープンカカオトーク', kakaoSub: '参加情報 · リアルタイム通知',
+      discord: 'Discord', discordSub: '公式 Discord コミュニティ',
       email: 'future1070@naver.com', emailSub: 'パートナーシップ · 一般お問い合わせ',
       x: '@vum_k67455', xSub: '公式 X (Twitter)',
       blog: 'VR インサイト', blogSub: 'ネイバーブログ',
@@ -192,6 +196,7 @@ const CONTENT: Record<string, Content> = {
     tunedDesc: '我们将通过开放聊天室与电子邮件，第一时间告知您日程、地点与报名开启时间。请勿错过。',
     contactLabels: {
       kakao: 'Kakao 开放聊天', kakaoSub: '活动消息 · 实时通知',
+      discord: 'Discord', discordSub: '官方 Discord 社区',
       email: 'future1070@naver.com', emailSub: '合作 · 一般咨询',
       x: '@vum_k67455', xSub: '官方 X (Twitter)',
       blog: 'VR Insight', blogSub: 'Naver 博客',
@@ -305,6 +310,18 @@ export function Fifth() {
                 <span className="contact__text">
                   <strong>{c.contactLabels.kakao}</strong>
                   <small>{c.contactLabels.kakaoSub}</small>
+                </span>
+                <span className="contact__arrow">→</span>
+              </a>
+              <a className="contact contact--discord" href={DISCORD_URL} target="_blank" rel="noopener noreferrer">
+                <span className="contact__icon">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="#fff">
+                    <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z" />
+                  </svg>
+                </span>
+                <span className="contact__text">
+                  <strong>{c.contactLabels.discord}</strong>
+                  <small>{c.contactLabels.discordSub}</small>
                 </span>
                 <span className="contact__arrow">→</span>
               </a>

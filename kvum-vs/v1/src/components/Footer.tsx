@@ -3,6 +3,8 @@
 import { useLocale } from 'next-intl';
 import Image from 'next/image';
 
+const DISCORD_URL = 'https://discord.gg/qm7uXSjBJZ';
+
 const FOOTER_DESC: Record<string, React.ReactNode> = {
   ko: <>국내 XR 유저 · 개발자 · 기업이 모이는<br />국내 최대 규모의 XR 유저 밋업.<br />2024년부터 지금까지, 그리고 앞으로도.</>,
   en: <>Korea&apos;s largest XR user meetup<br />where users · developers · companies come together.<br />Since 2024, and onwards.</>,
@@ -41,6 +43,7 @@ export function Footer() {
             <div className="footer__col-title">Community</div>
             <ul className="footer__col-list">
               <li><a href="https://open.kakao.com/o/gfNFgQ9f" target="_blank" rel="noopener">KakaoTalk</a></li>
+              <li><a href={DISCORD_URL} target="_blank" rel="noopener noreferrer">Discord</a></li>
               <li><a href="https://x.com/vum_k67455" target="_blank" rel="noopener">X (Twitter)</a></li>
               <li><a href="https://blog.naver.com/vr_insight" target="_blank" rel="noopener">VR Insight</a></li>
             </ul>

@@ -1101,6 +1101,7 @@ ul  { list-style: none; }
 }
 .contact__icon svg { display: block; }
 .contact--kakao .contact__icon { background: #FEE500; }
+.contact--discord .contact__icon { background: #5865F2; }
 .contact--x     .contact__icon { background: #000; box-shadow: inset 0 0 0 1px rgba(255,255,255,.14); }
 .contact--blog  .contact__icon { background: #03C75A; }
 .contact--email .contact__icon { background: rgba(255,255,255,.08); color: rgba(255,255,255,.85); }
